@@ -1,6 +1,5 @@
 document.addEventListener("DOMContentLoaded", function() {
-    // HTML'deki data attribute'dan auth key'i alın
-    const userAuthKey = document.body.getAttribute("data-auth-key").trim();
+    const userAuthKey = document.body.getAttribute('data-auth-key').trim(); // body'den Auth Key alınır
 
     // Key formatını doğrulayan regex deseni
     const keyPattern = /^DS-\d{4}-\d{4}$/;
