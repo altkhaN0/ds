@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function() {
-    const userAuthKey = document.body.getAttribute('data-auth-key').trim(); // Shopify ayarlarından gelen Auth Key
+    const userAuthKey = "{{ settings.auth_key }}".trim(); // Shopify ayarlarından gelen Auth Key, trim ile boşlukları temizliyoruz.
 
     // Key formatını doğrulayan regex deseni
     const keyPattern = /^DS-\d{4}-\d{4}$/;
@@ -7,25 +7,31 @@ document.addEventListener("DOMContentLoaded", function() {
     // Key'in formatının uygun olup olmadığını kontrol et
     if (!keyPattern.test(userAuthKey)) {
         document.body.innerHTML = "<div style='background-color: white; padding: 20px; text-align: center;'>Please enter a valid Auth Key format (e.g., DS-XXXX-XXXX).</div>";
-        console.error("Invalid Auth Key format.");
-        return;
+        console.error("Invalid Auth Key format."); // Hata ayıklama için log
+        return; // Doğrulama başarısızsa geri döner
     }
 
     // Allowlist URL'sini fetch ile al
-    fetch('https://raw.githubusercontent.com/altkhaN0/ds/main/allowlist.txt')
-        .then(response => response.text())  // JSON yerine text olarak alıyoruz
+    fetch('https://raw.githubusercontent.com/altkhaN0/ds/refs/heads/main/allowlist.json')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("Failed to load the auth list.");
+            }
+            return response.json(); // JSON formatında dönmesini sağlıyoruz
+        })
         .then(data => {
-            const allowlist = data.split('\n').map(line => line.trim());  // Satırları bölüp diziye çeviriyoruz
+            console.log("Allowlist received:", data); // JSON verisi kontrolü
 
-            if (!allowlist.includes(userAuthKey)) {
+            // Allowlist içindeki anahtarı kontrol et
+            if (!data.allowlist.includes(userAuthKey)) {
                 document.body.innerHTML = "<div style='background-color: white; padding: 20px; text-align: center;'>Please enter a valid Auth Key for theme usage.</div>";
-                console.warn("Auth Key not found in the allowlist.");
+                console.warn("Auth Key not found in the allowlist."); // Hata ayıklama için uyarı
             } else {
-                console.log("Auth Key is valid.");
+                console.log("Auth Key is valid."); // Geçerli anahtar için bilgi
             }
         })
         .catch(error => {
             document.body.innerHTML = "<div style='background-color: white; padding: 20px; text-align: center;'>An error occurred. Please try again later.</div>";
-            console.error("Error:", error);
+            console.error("Error:", error); // Hata loglama
         });
 });
