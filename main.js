@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 
   // Allowlist URL'sini fetch ile al
-  fetch('https://raw.githubusercontent.com/altkhaN0/shr/refs/heads/main/allowlist.json')
+  fetch('https://cdn.jsdelivr.net/gh/altkhaN0/ds@main/allowlist.json')
       .then(response => {
           if (!response.ok) {
               throw new Error("Failed to load the auth list.");
@@ -28,6 +28,11 @@ document.addEventListener("DOMContentLoaded", function() {
           } else {
               document.body.innerHTML = "<div style='padding: 20px; text-align: center;'>Theme is now activated!</div>";
               console.log("Auth Key is valid.");
+
+              // Geçici mesajdan sonra ana temayı aktifleştir
+              setTimeout(() => {
+                  document.body.innerHTML = ''; // Ana içeriği aktive etmek için temizleyebiliriz
+              }, 3000); // 3 saniye sonra mesaj kaybolacak
           }
       })
       .catch(error => {
