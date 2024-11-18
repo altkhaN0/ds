@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     // Allowlist URL'sini fetch ile al
-    fetch('https://cdn.jsdelivr.net/gh/altkhaN0/ds@main/allowlist.txt')
+    fetch('https://raw.githubusercontent.com/altkhaN0/ds/main/allowlist.txt')
         .then(response => response.text())  // JSON yerine text olarak alıyoruz
         .then(data => {
             const allowlist = data.split('\n').map(line => line.trim());  // Satırları bölüp diziye çeviriyoruz
