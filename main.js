@@ -1,28 +1,31 @@
-document.addEventListener("DOMContentLoaded", () => {
-  // Auth Key doğrulama işlemi
-  fetch("https://yourserver.com/auth/validate", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({ key: "YOUR_AUTH_KEY" })
-  })
-  .then(response => response.json())
-  .then(data => {
-    if (data.valid) {
-      // Temanın işlevselliğini başlat
-      initializeThemeFunctions();
-    } else {
-      document.body.innerHTML = "<div style='background-color: white; padding: 20px; text-align: center;'>Geçerli bir Auth Key gerekli.</div>";
-    }
-  })
-  .catch(error => {
-    console.error("Hata:", error);
-    document.body.innerHTML = "<div style='background-color: white; padding: 20px; text-align: center;'>Bir hata oluştu. Lütfen daha sonra tekrar deneyin.</div>";
-  });
-});
+  <script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const userAuthKey = "{{ settings.auth_key }}"; // Shopify ayarlarından gelen Auth Key
 
-function initializeThemeFunctions() {
-  // Temanın diğer işlevleri burada tanımlanır
-  console.log("Tema başlatıldı.");
-}
+    // Key formatını doğrulayan regex deseni
+    const keyPattern = /^DS-\d{4}-\d{4}$/;
+
+    // Key'in formatının uygun olup olmadığını kontrol et
+    if (!keyPattern.test(userAuthKey)) {
+document.body.innerHTML = "<div style='background-color: white; padding: 20px; text-align: center;'>Please enter a valid Auth Key format (e.g., DS-XXXX-XXXX).</div>";
+      return; // Doğrulama başarısızsa geri döner
+    }
+
+    fetch('')
+      .then(response => {
+        if (!response.ok) {
+          throw new Error("Failed to load the auth list.");
+        }
+        return response.json();
+      })
+      .then(allowlist => {
+        if (!allowlist.includes(userAuthKey)) {
+          document.body.innerHTML = "<div style='background-color: white; padding: 20px; text-align: center;'>Please enter a valid Auth Key for theme usage.</div>";
+        }
+      })
+      .catch(error => {
+        document.body.innerHTML = "<div style='background-color: white; padding: 20px; text-align: center;'>An error occurred. Please try again later.</div>";
+        console.error("Error:", error);
+      });
+  });
+</script>
