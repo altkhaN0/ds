@@ -28,6 +28,12 @@ document.addEventListener("DOMContentLoaded", function() {
                 console.warn("Auth Key not found in the allowlist."); // Hata ayıklama için uyarı
             } else {
                 console.log("Auth Key is valid."); // Geçerli anahtar için bilgi
+                
+                // Key doğruysa, temayı aktif yapıyoruz.
+                // Sayfada gerekli içeriği değiştiriyoruz, sayfa yüklenebilir hale geliyor.
+                document.body.style.backgroundColor = 'transparent'; // Arka planı temizliyoruz
+                document.body.innerHTML = "<div style='padding: 20px; text-align: center;'>Theme activated successfully!</div>";
+                console.log("Theme is now active."); // Aktivasyon bilgisi
             }
         })
         .catch(error => {
