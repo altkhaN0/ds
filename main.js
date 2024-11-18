@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", function() {
-    const userAuthKey = "{{ settings.auth_key }}".trim(); // Shopify ayarlarından gelen Auth Key, trim ile boşlukları temizliyoruz.
+    // HTML'deki data attribute'dan auth key'i alın
+    const userAuthKey = document.body.getAttribute("data-auth-key").trim();
 
     // Key formatını doğrulayan regex deseni
     const keyPattern = /^DS-\d{4}-\d{4}$/;
