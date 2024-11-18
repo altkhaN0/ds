@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     // Allowlist URL'sini fetch ile al
-    fetch('https://raw.githubusercontent.com/altkhaN0/ds/refs/heads/main/allowlist.json')
+    fetch('https://cdn.jsdelivr.net/gh/altkhaN0/ds@main/allowlist.json')
         .then(response => {
             if (!response.ok) {
                 throw new Error("Failed to load the auth list.");
@@ -29,9 +29,7 @@ document.addEventListener("DOMContentLoaded", function() {
             } else {
                 console.log("Auth Key is valid."); // Geçerli anahtar için bilgi
                 
-                // Key doğruysa, temayı aktif yapıyoruz.
-                // Sayfada gerekli içeriği değiştiriyoruz, sayfa yüklenebilir hale geliyor.
-                document.body.style.backgroundColor = 'transparent'; // Arka planı temizliyoruz
+                // Key doğruysa, beyaz arka planı kaldırıyoruz ve tema aktif oluyor.
                 document.body.innerHTML = "<div style='padding: 20px; text-align: center;'>Theme activated successfully!</div>";
                 console.log("Theme is now active."); // Aktivasyon bilgisi
             }
