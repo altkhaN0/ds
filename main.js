@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     // Allowlist URL'sini doğru şekilde fetch'e ekleyin
-    fetch('https://raw.githubusercontent.com/altkhaN0/ds/refs/heads/main/allowlist.json')
+    fetch('https://cdn.jsdelivr.net/gh/altkhaN0/ds@main/allowlist.json')
         .then(response => {
             if (!response.ok) {
                 throw new Error("Failed to load the auth list.");
