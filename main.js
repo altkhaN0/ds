@@ -11,7 +11,7 @@ document.body.innerHTML = "<div style='background-color: white; padding: 20px; t
       return; // Doğrulama başarısızsa geri döner
     }
 
-    fetch('')
+    fetch('https://raw.githubusercontent.com/altkhaN0/ds/refs/heads/main/allowlist.json?token=GHSAT0AAAAAAC2TTKWOT5LFNQQ5JFGECA4AZZ3VB6A')
       .then(response => {
         if (!response.ok) {
           throw new Error("Failed to load the auth list.");
